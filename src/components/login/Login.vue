@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="6" :offset="9">
+    <el-col :span="6" :offset="9" class="login-form">
       <el-card>
         <div class="choises">
           <router-link to="/login" class="switch-choise">登陆</router-link>
@@ -58,11 +58,10 @@ export default {
 </script>
 
 <style scope>
-.el-row {
+.login-form {
   display: flex;
   align-items: center;
-  min-height: 100%;
-  min-height: 80vh;
+  margin-top: 100px;
 }
 
 .el-card {

@@ -64,8 +64,6 @@ export default {
 .el-row {
   display: flex;
   align-items: center;
-  min-height: 100%;
-  min-height: 80vh;
 }
 
 .el-card {
