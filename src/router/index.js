@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
     if (window.localStorage.token) {
       next();
     } else {
-      next('/index/login');
+      next('/login');
     }
   } else {
     next();

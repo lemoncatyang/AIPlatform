@@ -1,14 +1,45 @@
 <template>
-  <el-upload class="avatar-uploader" 
-  action="https://jsonplaceholder.typicode.com/posts/" 
-  :show-file-list="false" 
-  :on-success="handleAvatarSuccess" 
-  :before-upload="beforeAvatarUpload">
-    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-  </el-upload>
+  <div>
+    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :headers="headers">
+      <img v-if="imageUrl" :src="imageUrl" class="avatar">
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
+    <el-button style="margin-top:50px;" type="warning" icon="upload" @click="startTraning">训练</el-button>
+  </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      imageUrl: '',
+      headers: {
+        'Authorization': this.$store.getters.token
+      }
+    };
+  },
+  methods: {
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('测试数据只能是 JPG 或 PNG 格式');
+      }
+      if (!isLt2M) {
+        this.$message.error('测试数据大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    },
+    startTraning() {
+      
+    }
+  }
+};
+</script>
 
 
 <style>
@@ -40,30 +71,3 @@
   display: block;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      imageUrl: ''
-    };
-  },
-  methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error('测试数据只能是 JPG 或 PNG 格式');
-      }
-      if (!isLt2M) {
-        this.$message.error('测试数据大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    }
-  }
-};
-</script>

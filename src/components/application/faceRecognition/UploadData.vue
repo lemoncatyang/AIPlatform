@@ -4,7 +4,11 @@
       <span>请选择需要上传的图像数据</span>
     </el-tooltip>
     <el-upload action="http://localhost:8686/api/facerecognition/uploadNewPhoto" 
-    list-type="picture-card" :headers="headers" :on-preview="handlePictureCardPreview" :show-file-list="true" :on-remove="handleRemove" :on-success="handleUploadSuccess" style="margin-top:50px;">
+    list-type="picture-card" 
+    :headers="headers" 
+    :on-preview="handlePictureCardPreview" 
+    :show-file-list="true" 
+    :on-remove="handleRemove" :on-success="handleUploadSuccess" style="margin-top:50px;">
       <i class="el-icon-plus"></i>
     </el-upload>
   
