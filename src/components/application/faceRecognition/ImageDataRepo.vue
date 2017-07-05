@@ -6,7 +6,6 @@
           <img :src="imageUrl" style="padding-top:20px;">
           <div style="padding: 0px;">
             <div class="bottom clearfix">
-              <time class="time">{{ currentDate }}</time>
               <el-button type="text" class="button">删除</el-button>
             </div>
           </div>

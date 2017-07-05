@@ -1,7 +1,7 @@
 <template>
-  <el-row>
+  <el-row class="login-form">
     <el-col :span="6" :offset="9">
-      <el-card></el-card>
+      <el-card>
       <div class="choises">
         <router-link to="/login" class="switch-choise">登陆</router-link>
         <b class="dot">·</b>
@@ -28,7 +28,6 @@
 
 <script>
 import qs from 'qs';
-import * as types from '../.././store/types';
 export default {
   name: 'Register',
   data() {
@@ -42,18 +41,8 @@ export default {
   },
   methods: {
     register() {
-
-    },
-    login() {
-      this.userInfo.grant_type = 'password';
-      this.axios.post('http://localhost:8686/api/authorization/token', qs.stringify(this.userInfo), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).then((response) => {
-        this.$store.commit(types.LOGIN, response.data);
-        this.axios.defaults.headers.common['Authorization'] = this.$store.getters.token;
-        this.$router.push('application');
+      this.axios.post('http://localhost:8686/api/account/register', qs.stringify(this.userInfo)).then((response) => {
+        this.$router.push('/login');
       });
     }
   }
@@ -61,11 +50,11 @@ export default {
 </script>
 
 <style scope>
-.el-row {
+.login-form {
   display: flex;
   align-items: center;
+  margin-top: 100px;
 }
-
 .el-card {
   width: 95%;
 }

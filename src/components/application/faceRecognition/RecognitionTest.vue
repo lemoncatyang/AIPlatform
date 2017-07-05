@@ -1,10 +1,9 @@
 <template>
   <div>
-    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :headers="headers">
+    <el-upload class="avatar-uploader" action="http://localhost:8686/api/FaceRecognition/FaceRecognition" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :headers="headers">
       <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
-    <el-button style="margin-top:50px;" type="warning" icon="upload" @click="startTraning">训练</el-button>
   </div>
 </template>
 
@@ -21,6 +20,10 @@ export default {
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
+      console.log(res);
+      this.$alert('该面部图片所属身份为:' + res.predictedUserName + '\n准确度为:' + res.scores, '面部识别结果', {
+        confirmButtonText: '确定'
+      });
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -33,9 +36,6 @@ export default {
         this.$message.error('测试数据大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
-    },
-    startTraning() {
-      
     }
   }
 };
