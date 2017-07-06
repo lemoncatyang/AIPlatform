@@ -7,14 +7,19 @@ import Vuex from 'Vuex';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import axios from 'axios';
-import VueAxios from 'vue-axios';
 import store from './store/store';
+// fade/zoom 等
+import 'element-ui/lib/theme-default/base.css';
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+
+Vue.component(CollapseTransition.name, CollapseTransition);
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Vuex);
-Vue.use(VueAxios, axios);
 
+Vue.prototype.$http = axios;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
