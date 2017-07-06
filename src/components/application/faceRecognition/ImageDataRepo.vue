@@ -1,7 +1,7 @@
 <template>
   <div style="padding:50px;">
     <el-row :gutter="50">
-      <el-col :span="3" v-for="imageUrl in imageUrls" :key="imageUrl"  style="margin-top:20px;">
+      <el-col :span="3" v-for="imageUrl in imageUrls" :key="imageUrl" style="margin-top:20px;">
         <el-card :body-style="{ padding: '0px' }">
           <img :src="imageUrl" style="padding-top:20px;">
           <div style="padding: 0px;">
@@ -34,11 +34,7 @@ export default {
   },
   methods: {
     fetchData() {
-      this.axios.get('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/CurrentUserRelatedPhotosList', {
-        headers: {
-          'Authorization': this.$store.getters.token
-        }
-      }).then((response) => {
+      this.$http.get('http://localhost:8686/api/FaceRecognition/CurrentUserRelatedPhotosList').then((response) => {
         this.imageCount = response.data.length;
         for (let i = 0; i !== response.data.length; i++) {
           this.imageUrls.push('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/GetImage/' + response.data[i]);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-upload class="avatar-uploader" action="http://aiexamples.chinacloudsites.cn/api/FaceRecognition/FaceRecognition" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :headers="headers">
+    <el-upload class="avatar-uploader" action="http://localhost:8686/api/FaceRecognition/FaceRecognition" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
       <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
@@ -11,16 +11,12 @@
 export default {
   data() {
     return {
-      imageUrl: '',
-      headers: {
-        'Authorization': this.$store.getters.token
-      }
+      imageUrl: ''
     };
   },
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      console.log(res);
       this.$alert('该面部图片所属身份为:' + res.predictedUserName + '\n准确度为:' + res.scores, '面部识别结果', {
         confirmButtonText: '确定'
       });

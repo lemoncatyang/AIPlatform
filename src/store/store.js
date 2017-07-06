@@ -5,6 +5,9 @@ import * as types from './types';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  created() {
+    console.log('123');
+  },
   state: {
     user: {},
     access_token: null,

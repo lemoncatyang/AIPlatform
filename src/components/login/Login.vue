@@ -1,29 +1,31 @@
 <template>
-  <el-row>
-    <el-col :span="6" :offset="9" class="login-form">
-      <el-card>
-        <div class="choises">
-          <router-link to="/login" class="switch-choise">登陆</router-link>
-          <b class="dot">·</b>
-          <router-link to="/register" class="switch-choise">注册</router-link>
-        </div>
-        <el-form>
-          <el-form-item>
-            <el-input v-model="userInfo.username" placeholder="请输入用户名"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-input type="password" v-model="userInfo.password" placeholder="请输入密码"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-checkbox v-model="rememberMeChecked">记住我</el-checkbox>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="login" size="large">登陆</el-button>
-          </el-form-item>
-        </el-form>
-      </el-card>
-    </el-col>
-  </el-row>
+  <transition name="el-fade-in">
+    <el-row v-show="show">
+      <el-col :span="6" :offset="9" class="login-form">
+        <el-card>
+          <div class="choises">
+            <router-link to="/login" class="switch-choise">登陆</router-link>
+            <b class="dot">·</b>
+            <router-link to="/register" class="switch-choise">注册</router-link>
+          </div>
+          <el-form>
+            <el-form-item>
+              <el-input v-model="userInfo.username" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input type="password" v-model="userInfo.password" placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-checkbox v-model="rememberMeChecked">记住我</el-checkbox>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="login" size="large">登陆</el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
+      </el-col>
+    </el-row>
+  </transition>
 </template>
 
 <script>
@@ -33,6 +35,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      show: true,
       userInfo: {
         username: '',
         password: ''
@@ -43,14 +46,21 @@ export default {
   methods: {
     login() {
       this.userInfo.grant_type = 'password';
-      this.axios.post('http://aiexamples.chinacloudsites.cn/api/authorization/token', qs.stringify(this.userInfo), {
+      this.$http.post('http://localhost:8686/api/authorization/token', qs.stringify(this.userInfo), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-      }).then((response) => {
+      }).then(response => {
         this.$store.commit(types.LOGIN, response.data);
-        this.axios.defaults.headers.common['Authorization'] = this.$store.getters.token;
+        this.$http.defaults.headers.common['Authorization'] = this.$store.getters.token;
+        console.log(this.$http.defaults.headers.common['Authorization']);
         this.$router.push('application');
+      }).catch(() => {
+        this.$message({
+          message: '密码或账号错误',
+          type: 'error',
+          duration: 1000
+        });
       });
     }
   }

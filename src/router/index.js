@@ -25,6 +25,9 @@ const router = new Router({
       path: '/application',
       name: 'application',
       component: Application,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: 'face-recognition',
@@ -35,26 +38,17 @@ const router = new Router({
             {
               path: 'image-data-repo',
               name: 'ImageDataRepo',
-              component: ImageDataRepo,
-              meta: {
-                requireAuth: true
-              }
+              component: ImageDataRepo
             },
             {
               path: 'upload-data',
               name: 'UploadData',
-              component: UploadData,
-              meta: {
-                requireAuth: true
-              }
+              component: UploadData
             },
             {
               path: 'recognition-test',
               name: 'RecognitionTest',
-              component: RecognitionTest,
-              meta: {
-                requireAuth: true
-              }
+              component: RecognitionTest
             }
           ]
         }
@@ -65,7 +59,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // to and from are Route Object,next() must be called to resolve the hook
-  console.log(to);
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (window.localStorage.token) {
       next();
