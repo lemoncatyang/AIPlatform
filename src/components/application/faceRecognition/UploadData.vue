@@ -3,7 +3,7 @@
     <el-tooltip class="item" effect="dark" content="该数据会匹配您账号对应的个人图像库" placement="right-start">
       <span>请选择需要上传的图像数据</span>
     </el-tooltip>
-    <el-upload action="http://localhost:8686/api/facerecognition/uploadNewPhoto" 
+    <el-upload action="http://aiexamples.chinacloudsites.cn/api/facerecognition/uploadNewPhoto" 
     list-type="picture-card" 
     :headers="headers" 
     :on-preview="handlePictureCardPreview" 

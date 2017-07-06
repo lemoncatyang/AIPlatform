@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     register() {
-      this.axios.post('http://localhost:8686/api/account/register', qs.stringify(this.userInfo)).then((response) => {
+      this.axios.post('http://aiexamples.chinacloudsites.cn/api/account/register', qs.stringify(this.userInfo)).then((response) => {
         this.$router.push('/login');
       });
     }

@@ -34,17 +34,17 @@ export default {
   },
   methods: {
     fetchData() {
-      this.axios.get('http://localhost:8686/api/FaceRecognition/CurrentUserRelatedPhotosList', {
+      this.axios.get('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/CurrentUserRelatedPhotosList', {
         headers: {
           'Authorization': this.$store.getters.token
         }
       }).then((response) => {
         this.imageCount = response.data.length;
         for (let i = 0; i !== response.data.length; i++) {
-          this.imageUrls.push('http://localhost:8686/api/FaceRecognition/GetImage/' + response.data[i]);
+          this.imageUrls.push('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/GetImage/' + response.data[i]);
         }
         // for (let i = 0; i !== response.data.length; i++) {
-        //   this.axios.get('http://localhost:8686/api/FaceRecognition/GetImage/' + response.data[i], {
+        //   this.axios.get('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/GetImage/' + response.data[i], {
         //     headers: {
         //       'Authorization': this.$store.getters.token
         //     },

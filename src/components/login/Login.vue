@@ -43,7 +43,7 @@ export default {
   methods: {
     login() {
       this.userInfo.grant_type = 'password';
-      this.axios.post('http://localhost:8686/api/authorization/token', qs.stringify(this.userInfo), {
+      this.axios.post('http://aiexamples.chinacloudsites.cn/api/authorization/token', qs.stringify(this.userInfo), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
