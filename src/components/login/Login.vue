@@ -46,14 +46,13 @@ export default {
   methods: {
     login() {
       this.userInfo.grant_type = 'password';
-      this.$http.post('http://localhost:8686/api/authorization/token', qs.stringify(this.userInfo), {
+      this.$http.post('authorization/token', qs.stringify(this.userInfo), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(response => {
         this.$store.commit(types.LOGIN, response.data);
         this.$http.defaults.headers.common['Authorization'] = this.$store.getters.token;
-        console.log(this.$http.defaults.headers.common['Authorization']);
         this.$router.push('application');
       }).catch(() => {
         this.$message({

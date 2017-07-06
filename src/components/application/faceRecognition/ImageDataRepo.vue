@@ -34,10 +34,10 @@ export default {
   },
   methods: {
     fetchData() {
-      this.$http.get('http://localhost:8686/api/FaceRecognition/CurrentUserRelatedPhotosList').then((response) => {
+      this.$http.get('FaceRecognition/CurrentUserRelatedPhotosList').then((response) => {
         this.imageCount = response.data.length;
         for (let i = 0; i !== response.data.length; i++) {
-          this.imageUrls.push('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/GetImage/' + response.data[i]);
+          this.imageUrls.push('http://localhost:8686/api/FaceRecognition/GetImage/' + response.data[i]);
         }
         // for (let i = 0; i !== response.data.length; i++) {
         //   this.axios.get('http://aiexamples.chinacloudsites.cn/api/FaceRecognition/GetImage/' + response.data[i], {

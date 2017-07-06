@@ -19,10 +19,12 @@ const store = new Vuex.Store({
       state.access_token = data.access_token;
       state.token_type = data.token_type;
       window.localStorage.token = data.token_type + ' ' + data.access_token;
+      alert(window.localStorage.token);
     },
     [types.LOGOUT]: (state) => {
       localStorage.removeItem('token');
       state.token = null;
+      this.$http.defaults.headers.common['Authorization'] = null;
     }
   },
   getters: {

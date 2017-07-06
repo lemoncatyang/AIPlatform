@@ -8,9 +8,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import axios from 'axios';
 import store from './store/store';
-// fade/zoom 等
 import 'element-ui/lib/theme-default/base.css';
-// collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 
 Vue.component(CollapseTransition.name, CollapseTransition);
@@ -19,12 +17,21 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Vuex);
 
-Vue.prototype.$http = axios;
+var axiosInstance = axios.create({
+  baseURL: 'http://localhost:8686/api/'
+});
+
+Vue.prototype.$http = axiosInstance;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  created() {
+    if (window.localStorage.token !== null) {
+      this.$http.defaults.headers.common['Authorization'] = this.$store.getters.token;
+    }
+  }
 });
